@@ -1,6 +1,21 @@
 import * as layout from './layout'
 
+class InvalidLayoutCombinationError extends Error {
+    constructor(message: string) {
+        super(message)
+        this.name = "InvalidLayoutCombinationError"
+    }
+}
+
+type ThaLayout = ['Manoonchai', 'Kedmanee']
+type EngLayout = ['QWERTY']
+
+/**
+ * Convert between QWERTY and Kedmanee layout
+ * @param {String} message Message that you want to convert
+ */
 export function qwkm(message: string) {
+
     let messageArray = [...message]
     let messageLength = messageArray.length
     let ans = []
@@ -60,6 +75,10 @@ export function qwkm(message: string) {
     return ansString
 }
 
+/**
+ * Convert between QWERTY and Manoonchai layout
+ * @param {String} message Message that you want to convert
+ */
 export function qwmn(message: string) {
     let messageArray = [...message]
     let messageLength = messageArray.length
@@ -84,4 +103,24 @@ export function qwmn(message: string) {
     return ansString
 }
 
-export default { qwkm, qwmn }
+/**
+ * Universal-ly convert method.
+ * @param {EngLayout} englayout User's English keyboard layout
+ * @param {ThaLayout} thalayout User's Thai keyboard layout
+ * @param {String} message Message that you want to convert
+ */
+export function convert(englayout: EngLayout, thalayout: ThaLayout, message: string) {
+    if (thalayout.toString() === 'Manoonchai' || englayout.toString() === 'QWERTY') {
+        let ans = qwmn(message)
+        return ans
+    }
+    else if (thalayout.toString() === 'Kedmanee' || englayout.toString() === 'QWERTY') {
+        let ans = qwkm(message)
+        return ans
+    }
+    else {
+        throw new InvalidLayoutCombinationError('Layout combination provided is invalid!')
+    }
+}
+
+export default { qwkm, qwmn, convert }
