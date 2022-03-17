@@ -7,8 +7,8 @@ class InvalidLayoutCombinationError extends Error {
     }
 }
 
-export type ThaLayout = ['Manoonchai', 'Kedmanee']
-export type EngLayout = ['QWERTY']
+type ThaLayout = ['Manoonchai', 'Kedmanee']
+type EngLayout = ['QWERTY']
 
 /**
  * Convert between QWERTY and Kedmanee layout
@@ -124,3 +124,4 @@ export function convert(englayout: EngLayout, thalayout: ThaLayout, message: str
 }
 
 export default { qwkm, qwmn, convert }
+export type { EngLayout, ThaLayout }
