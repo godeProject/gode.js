@@ -110,11 +110,11 @@ export function qwmn(message: string) {
  * @param {String} message Message that you want to convert
  */
 export function convert(englayout: EngLayout, thalayout: ThaLayout, message: string) {
-    if (thalayout.toString() === 'Manoonchai' || englayout.toString() === 'QWERTY') {
+    if (thalayout.toString() === 'Manoonchai' && englayout.toString() === 'QWERTY') {
         let ans = qwmn(message)
         return ans
     }
-    else if (thalayout.toString() === 'Kedmanee' || englayout.toString() === 'QWERTY') {
+    else if (thalayout.toString() === 'Kedmanee' && englayout.toString() === 'QWERTY') {
         let ans = qwkm(message)
         return ans
     }
