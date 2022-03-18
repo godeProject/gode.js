@@ -8,7 +8,7 @@ class InvalidLayoutCombinationError extends Error {
 }
 
 type ThaLayout = ['Manoonchai', 'Kedmanee']
-type EngLayout = ['QWERTY']
+type EngLayout = ['QWERTY', 'Dvorak']
 
 /**
  * Convert between QWERTY and Kedmanee layout
@@ -104,6 +104,99 @@ export function qwmn(message: string) {
 }
 
 /**
+ * Convert between Dvorak and Kedmanee layout
+ * @param {String} message Message that you want to convert
+ */
+export function dvkm(message: string) {
+
+    let messageArray = [...message]
+    let messageLength = messageArray.length
+    let ans = []
+    let i = 0
+    while (i < messageLength) {
+        if (messageArray[i] === ',') {
+            if (layout.dvorak.includes(messageArray[i - 1])) {
+                ans.push(layout.kedmanee[layout.dvorak.indexOf(messageArray[i])])
+            }
+            else if (layout.kedmanee.includes(messageArray[i - 1])) {
+                ans.push(layout.dvorak[layout.kedmanee.indexOf(messageArray[i])])
+            }
+            else {
+                ans.push(layout.kedmanee[layout.dvorak.indexOf(messageArray[i])])
+            }
+        }
+        else if (messageArray[i] === '.') {
+            if (layout.kedmanee.includes(messageArray[i - 1])) {
+                ans.push(layout.dvorak[layout.kedmanee.indexOf(messageArray[i])])
+            }
+            else if (layout.dvorak.includes(messageArray[i - 1])) {
+                ans.push(layout.kedmanee[layout.dvorak.indexOf(messageArray[i])])
+            }
+            else {
+                ans.push(layout.kedmanee[layout.dvorak.indexOf(messageArray[i])])
+            }
+        }
+        else if (messageArray[i] === '-') {
+            if (messageArray[i - 1] === " " && messageArray[i + 1] === "") {
+                ans.push(layout.dvorak[layout.kedmanee.indexOf(messageArray[i])])
+            }
+            else if (layout.kedmanee.includes(messageArray[i - 1])) {
+                ans.push(layout.dvorak[layout.kedmanee.indexOf(messageArray[i])])
+            }
+            else if (layout.dvorak.includes(messageArray[i - 1])) {
+                ans.push(layout.kedmanee[layout.dvorak.indexOf(messageArray[i])])
+            }
+            else {
+                ans.push(layout.dvorak[layout.kedmanee.indexOf(messageArray[i])])
+            }
+        }
+        else if (layout.kedmanee.includes(messageArray[i])) {
+            ans.push(layout.dvorak[layout.kedmanee.indexOf(messageArray[i])])
+        }
+        else if (layout.dvorak.includes(messageArray[i])) {
+            ans.push(layout.kedmanee[layout.dvorak.indexOf(messageArray[i])])
+        }
+        else if (messageArray[i] === " ") {
+            ans.push(" ")
+        }
+        else {
+            ans.push(messageArray[i])
+        }
+        i++
+    }
+    let ansString = ans.join('')
+    return ansString
+}
+
+/**
+ * Convert between Dvorak and Manoonchai layout
+ * @param {String} message Message that you want to convert
+ */
+export function dvmn(message: string) {
+    let messageArray = [...message]
+    let messageLength = messageArray.length
+    let ans = []
+    let i = 0
+    while (i < messageLength) {
+        if (layout.manoonchai.includes(messageArray[i])) {
+            ans.push(layout.dvorak[layout.manoonchai.indexOf(messageArray[i])])
+        }
+        else if (layout.dvorak.includes(messageArray[i])) {
+            ans.push(layout.manoonchai[layout.dvorak.indexOf(messageArray[i])])
+        }
+        else if (messageArray[i] === " ") {
+            ans.push(" ")
+        }
+        else {
+            ans.push(messageArray[i])
+        }
+        i++
+    }
+    let ansString = ans.join('')
+    return ansString
+}
+
+/**
  * Universal-ly convert method.
  * @param {EngLayout} englayout User's English keyboard layout
  * @param {ThaLayout} thalayout User's Thai keyboard layout
@@ -116,6 +209,14 @@ export function convert(englayout: EngLayout, thalayout: ThaLayout, message: str
     }
     else if (thalayout.toString() === 'Kedmanee' && englayout.toString() === 'QWERTY') {
         let ans = qwkm(message)
+        return ans
+    }
+    else if (thalayout.toString() === 'Kedmanee' && englayout.toString() === 'Dvorak') {
+        let ans = dvkm(message)
+        return ans
+    }
+    else if (thalayout.toString() === 'Manoonchai' && englayout.toString() === 'Dvorak') {
+        let ans = dvmn(message)
         return ans
     }
     else {
