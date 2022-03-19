@@ -203,21 +203,37 @@ export function dvmn(message: string) {
  * @param {String} message Message that you want to convert
  */
 export function convert(englayout: EngLayout, thalayout: ThaLayout, message: string) {
-    if (thalayout.toString() === 'Manoonchai' && englayout.toString() === 'QWERTY') {
-        let ans = qwmn(message)
-        return ans
+    if (thalayout.toString() === 'Kedmanee') {
+        if (englayout.toString() === 'QWERTY') {
+            //qwkm
+            let ans = qwkm(message)
+            return ans
+        }
+        else if (englayout.toString() === 'Dvorak') {
+            //dvkm
+            let ans = dvkm(message)
+            return ans
+        }
+        else {
+            //invalidlayoutcombination
+            throw new InvalidLayoutCombinationError('Layout combination provided is invalid!')
+        }
     }
-    else if (thalayout.toString() === 'Kedmanee' && englayout.toString() === 'QWERTY') {
-        let ans = qwkm(message)
-        return ans
-    }
-    else if (thalayout.toString() === 'Kedmanee' && englayout.toString() === 'Dvorak') {
-        let ans = dvkm(message)
-        return ans
-    }
-    else if (thalayout.toString() === 'Manoonchai' && englayout.toString() === 'Dvorak') {
-        let ans = dvmn(message)
-        return ans
+    else if (thalayout.toString() === 'Manoonchai') {
+        if (englayout.toString() === 'QWERTY') {
+            //qwmn
+            let ans = qwmn(message)
+            return ans
+        }
+        else if (englayout.toString() === 'Dvorak') {
+            //dvmn
+            let ans = dvmn(message)
+            return ans
+        }
+        else {
+            //invalidlayoutcombination
+            throw new InvalidLayoutCombinationError('Layout combination provided is invalid!')
+        }
     }
     else {
         throw new InvalidLayoutCombinationError('Layout combination provided is invalid!')
