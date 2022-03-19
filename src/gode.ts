@@ -85,7 +85,10 @@ export function qwmn(message: string) {
     let ans = []
     let i = 0
     while (i < messageLength) {
-        if (layout.manoonchai.includes(messageArray[i])) {
+        if (messageArray[i] === "-") {
+            ans.push(messageArray[i])
+        }
+        else if (layout.manoonchai.includes(messageArray[i])) {
             ans.push(layout.qwerty[layout.manoonchai.indexOf(messageArray[i])])
         }
         else if (layout.qwerty.includes(messageArray[i])) {
@@ -114,7 +117,21 @@ export function dvkm(message: string) {
     let ans = []
     let i = 0
     while (i < messageLength) {
-        if (messageArray[i] === ',') {
+        if (messageArray[i] === "/") {
+            if (messageArray[i - 1] === " " && messageArray[i + 1] === " ") {
+                ans.push(layout.dvorak[layout.kedmanee.indexOf(messageArray[i])])
+            }
+            else if (layout.kedmanee.includes(messageArray[i - 1])) {
+                ans.push(layout.dvorak[layout.kedmanee.indexOf(messageArray[i])])
+            }
+            else if (layout.dvorak.includes(messageArray[i - 1])) {
+                ans.push(layout.kedmanee[layout.dvorak.indexOf(messageArray[i])])
+            }
+            else {
+                ans.push(layout.dvorak[layout.kedmanee.indexOf(messageArray[i])])
+            }
+        }
+        else if (messageArray[i] === ',') {
             if (layout.dvorak.includes(messageArray[i - 1])) {
                 ans.push(layout.kedmanee[layout.dvorak.indexOf(messageArray[i])])
             }
@@ -137,7 +154,7 @@ export function dvkm(message: string) {
             }
         }
         else if (messageArray[i] === '-') {
-            if (messageArray[i - 1] === " " && messageArray[i + 1] === "") {
+            if (messageArray[i - 1] === " " && messageArray[i + 1] === " ") {
                 ans.push(layout.dvorak[layout.kedmanee.indexOf(messageArray[i])])
             }
             else if (layout.kedmanee.includes(messageArray[i - 1])) {
