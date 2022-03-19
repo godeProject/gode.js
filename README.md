@@ -26,19 +26,41 @@ CommonJS
 const gode = require('gode.js')
 
 let message = 'l;ylfu'
-gode.convert(message)
+gode.convert('QWERTY', 'Kedmanee', message)
 //returns สวัสดี
+
+//or with specific function
+
+//QWERTY - Kedmanee
+gode.qwkm('l;ylfu')
+//returns สวัสดี
+
+//and for other support layouts
+gode.qwmn('message') //QWERTY - Manoonchai
+gode.dvkm('message') // Dvorak - Kedmanee
+gode.dvmn('message') // Dvorak - Manoonchai
 ```
 
-ES6
+ES6 *(in this case, typescript)*
 
 ```ts
-import gode from 'gode.js'
+import gode, {EngLayout, ThaLayout} from 'gode.js'
 
-let message = 'l;ylfu'
-gode.convert(message) // message needs to be "string"
+let message: string = 'l;ylfu'
+gode.convert('QWERTY' as EngLayout, 'Kedmanee' as ThaLayout, message)
 //returns สวัสดี
+
+//or with specific function
+
+//QWERTY - Kedmanee
+gode.qwkm('l;ylfu' as string)
+//returns สวัสดี
+
+//and for other support layouts
+gode.qwmn('message'as string) //QWERTY - Manoonchai
+gode.dvkm('message'as string) // Dvorak - Kedmanee
+gode.dvmn('message'as string) // Dvorak - Manoonchai
 ```
 
 ## License
-[MIT License](https://github.com/godeProject/LICENSE.md)
+[MIT License](https://github.com/godeProject/gode.js/blob/v2/LICENSE.md)
