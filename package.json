@@ -12,7 +12,8 @@
     "dist/**/*.ts"
   ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "release": "release-it"
   },
   "repository": {
     "type": "git",
@@ -26,5 +27,8 @@
     "thai",
     "language"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "release-it": "*"
+  }
 }
