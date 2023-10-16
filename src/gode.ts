@@ -32,6 +32,17 @@ export function qwkm(message: string) {
                 ans.push(layout.kedmanee[layout.qwerty.indexOf(messageArray[i])])
             }
         }
+        else if (messageArray[i] === '/'){
+            if (layout.kedmanee.includes(messageArray[i - 1])) {
+                ans.push(layout.qwerty[layout.kedmanee.indexOf(messageArray[i])])
+            }
+            else if (layout.qwerty.includes(messageArray[i - 1])) {
+                ans.push(layout.kedmanee[layout.qwerty.indexOf(messageArray[i])])
+            }
+            else {
+                ans.push(layout.kedmanee[layout.qwerty.indexOf(messageArray[i])])
+            }
+        }
         else if (messageArray[i] === '.') {
             if (layout.kedmanee.includes(messageArray[i - 1])) {
                 ans.push(layout.qwerty[layout.kedmanee.indexOf(messageArray[i])])
