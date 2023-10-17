@@ -1,6 +1,6 @@
 {
   "name": "gode.js",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "Convert gibberish caused by Thai user forgotting to change their keyboard layout.",
   "author": "Jakkaphat Chalermphanaphan",
   "main": "dist/gode.js",
